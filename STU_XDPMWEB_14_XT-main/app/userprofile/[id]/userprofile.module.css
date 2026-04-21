@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Genos:wght@200;400;600&family=Manjari:wght@100;400;700&family=Manrope:wght@200;400;600&display=swap');
 
-body {
-  margin: 0;
-  font-family: Manrope;
-  background-color: #ffffff; /* hoặc màu bạn muốn */
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;

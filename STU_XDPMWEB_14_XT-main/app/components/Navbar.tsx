@@ -4,15 +4,10 @@ import styles from "./navbar.module.css";
 import { useUser } from "../context/UserContext";
 import { SHOP_APP_URL, getImageUrl } from "../utils/url";
 
-type User = {
-  username: string;
-  avatar: string;
-};
-
 export default function Navbar() {
  
   const { user } = useUser();
-  const displayName = user?.username || user?.name || "Khách";
+  const displayName = user?.username || "Khách";
   const avatarUrl = user?.avatar_url || user?.avatar || "/default_avatar.png";
 
   return (

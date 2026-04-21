@@ -54,7 +54,7 @@ interface User {
 }
 export default function ProfilePage() {
     // const [user, setUser] = useState<User | null>(null);
-    const { user, setUser } = useUser();
+    const { user, isReady } = useUser();
     const [openModal, setOpenModal] = useState<"followers" | "following" | null>(null);
     const [openPostModal, setOpenPostModal] = useState(false);
     const [content, setContent] = useState("");
@@ -198,7 +198,11 @@ export default function ProfilePage() {
         );
     };
 
-    if (!user) return <div>Đang tải...</div>;
+    if (!isReady) return <div>Đang tải...</div>;
+
+    if (!user) {
+        return <div>Bạn chưa đăng nhập.</div>;
+    }
 
     return (
 
