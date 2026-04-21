@@ -1,0 +1,448 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal {
+  display: flex;
+  width: 900px;
+  height: 550px;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+
+.left {
+  width: 50%;
+}
+
+.left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* border-bottom: 2px solid #9c9c9c; */
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.userRow {
+  display: flex;
+  justify-content: space-between; /* 👈 đẩy menu sang phải */
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #1e1e1e;
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  color: #1e1e1e;
+}
+
+.username {
+  font-weight: bold;
+}
+
+/* 🔥 Privacy */
+.privacyStatus {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #6f6f6f;
+  margin-top: 2px;
+}
+
+.privacyIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.menuWrapper {
+  position: relative;
+}
+
+.moreIcon {
+  width: 20px;
+  cursor: pointer;
+}
+
+.menu{
+  position:absolute;
+  top:28px;
+  right:0;
+  background:#e8e8e8;
+  border-radius:8px;
+  width:180px;
+  z-index:10;
+  border:2px solid #666666; 
+}
+
+.subMenu{
+  position:absolute;
+  top:100%;
+  left:20%;       
+  margin-left:6px;  
+  background:#0f0f0f;
+  border-radius:8px;
+  width:150px;
+  z-index:20;
+}
+
+.menuItem{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  cursor:pointer;
+  border-radius:8px;
+  color:#242424;
+  font-size:14px;
+  position:relative;   
+
+}
+
+.menuItem:hover{
+  background:#c9c9c9;
+}
+
+.menuIcon{
+  width:25px;
+  height:25px;
+}
+
+.lined{
+  border-bottom: 1px solid #9e9e9e;
+}
+
+.menuItem:hover .subMenu{
+  display:block;
+}
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #e08702;
+}
+
+.caption {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #b4b4b4;
+  color: #1e1e1e;
+
+}
+
+
+.stats {
+  display: flex;
+  justify-content: space-around; /* hoặc space-between */
+  padding: 2px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #b4b4b4;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;  /* 👈 căn giữa icon + text */
+  gap: 5px;
+  font-size: 14px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.stats img {
+  width: 30px;
+  margin-right: 5px;
+}
+
+
+
+.comments {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.commentItem {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.avatarSmall {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.username {
+  font-weight: bold;
+}
+/* ///////// */
+.modalOverlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Manrope;
+  overflow: visible;
+  z-index: 200;
+
+}
+
+/* Modal */
+.postModal {
+  background: #ebebeb;
+  padding: 20px;
+  border-radius: 12px;
+  width: 650px;
+}
+
+/* Title */
+.modalTitle {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bolder;
+  font-size: large;
+  border-bottom: 2px solid #7c7c7c;
+
+}
+
+/* Header */
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Avatar */
+.smallAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d55c00;
+}
+
+/* Select */
+.select {
+  padding: 5px;
+  border-radius: 6px;
+}
+
+/* Textarea */
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  margin: 15px 0;
+  padding: 8px;
+  font-size: large;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+  color: #1e1e1e;
+}
+
+
+/* Preview */
+.preview {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.previewImg {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.modalTitle{
+  color: #0f0f0f;
+}
+
+/* Button */
+.submitBtn {
+  width: 100%;
+  padding: 4px;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-family: Genos;
+  font-weight: bolder;
+  font-size: 23px;
+}
+
+/* /// radio quyền riêng tư */
+/* Wrapper */
+.privacyWrapper {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+/* Ẩn radio mặc định */
+.radioOption input {
+  display: none;
+}
+
+/* Box option */
+.radioOption {
+  cursor: pointer;
+}
+
+/* Nội dung hiển thị */
+.radioContent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #979797;
+  border-radius: 8px;
+  background: rgb(193, 193, 193);
+  color: #1e1e1e;
+
+}
+
+/* Icon */
+.radioContent img {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hover */
+.radioContent:hover {
+  background: #f9a55b;
+}
+
+/* Checked state */
+.radioOption input:checked+.radioContent {
+  background: #f9a55b;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: medium;
+  margin-bottom: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #3a3a3a;
+  width: 100%;
+  color: #1e1e1e;
+}
+
+
+/* Overlay modal xóa*/
+.confirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Box */
+.confirmBox {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  font-family: Manrope;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Text */
+.confirmBox p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+/* Actions */
+.confirmActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Button chung */
+.confirmActions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+/* Nút Hủy */
+.confirmActions button:first-child {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+.confirmActions button:first-child:hover {
+  background: #555;
+}
+
+/* Nút Xóa */
+.deleteBtn {
+  background: #e53935;
+  color: white;
+}
+
+.deleteBtn:hover {
+  background: #ff4d4f;
+}

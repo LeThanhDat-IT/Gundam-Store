@@ -1,0 +1,235 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id                                  Int             @id @default(autoincrement())
+  username                            String          @unique(map: "username") @db.VarChar(50)
+  password                            String          @db.VarChar(255)
+  email                               String          @unique(map: "email") @db.VarChar(100)
+  avatar                              String?         @db.VarChar(255)
+  createdAt                           DateTime?       @default(now()) @map("created_at") @db.DateTime(0)
+  role                                Role?           @default(user)
+  phone                               String?         @db.VarChar(20)
+  address                             String?         @db.VarChar(255)
+  cart                                cart[]
+  follows_follows_follower_idTousers  follows[]       @relation("follows_follower_idTousers")
+  follows_follows_following_idTousers follows[]       @relation("follows_following_idTousers")
+  orders                              orders[]
+  post_comments                       post_comments[]
+  post_likes                          post_likes[]
+  post_shares                         post_shares[]
+  posts                               posts[]
+
+  @@map("users")
+}
+
+model cart {
+  id         Int       @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  quantity   Int?      @default(1)
+  added_at   DateTime? @default(now()) @db.DateTime(0)
+  users      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "cart_ibfk_1")
+  products   products  @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "cart_ibfk_2")
+
+  @@index([product_id], map: "product_id")
+  @@index([user_id], map: "user_id")
+}
+
+model categories {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique(map: "name") @db.VarChar(100)
+  products      products[]
+  subcategories subcategories[]
+}
+
+model follows {
+  id                                Int       @id @default(autoincrement())
+  follower_id                       Int
+  following_id                      Int
+  created_at                        DateTime? @default(now()) @db.DateTime(0)
+  users_follows_follower_idTousers  User      @relation("follows_follower_idTousers", fields: [follower_id], references: [id], onDelete: Cascade, map: "follows_ibfk_1")
+  users_follows_following_idTousers User      @relation("follows_following_idTousers", fields: [following_id], references: [id], onDelete: Cascade, map: "follows_ibfk_2")
+
+  @@unique([follower_id, following_id], map: "follower_id_2")
+  @@index([follower_id], map: "follower_id")
+  @@index([following_id], map: "following_id")
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement()) @db.UnsignedInt
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+model order_items {
+  id         Int       @id @default(autoincrement())
+  order_id   Int?
+  product_id Int?
+  price      Decimal?  @db.Decimal(12, 2)
+  quantity   Int?
+  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "order_items_ibfk_1")
+  products   products? @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_items_ibfk_2")
+
+  @@index([order_id], map: "order_id")
+  @@index([product_id], map: "product_id")
+}
+
+model orders {
+  id            Int            @id @default(autoincrement())
+  user_id       Int?
+  total_price   Decimal?       @db.Decimal(12, 2)
+  status        orders_status? @default(pending)
+  created_at    DateTime?      @default(now()) @db.DateTime(0)
+  receiver_name String?        @db.VarChar(100)
+  phone         String?        @db.VarChar(20)
+  address       String?        @db.VarChar(255)
+  order_items   order_items[]
+  users         User?          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_ibfk_1")
+
+  @@index([user_id], map: "user_id")
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt    @db.UnsignedBigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  expires_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model post_comments {
+  id         Int       @id @default(autoincrement())
+  post_id    Int
+  user_id    Int
+  content    String?   @db.VarChar(300)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  posts      posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "post_comments_ibfk_1")
+  users      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "post_comments_ibfk_2")
+
+  @@index([post_id], map: "post_id")
+  @@index([user_id], map: "user_id")
+}
+
+model post_images {
+  id         Int       @id @default(autoincrement())
+  post_id    Int?
+  image_url  String?   @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  posts      posts?    @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "post_images_ibfk_1")
+
+  @@index([post_id], map: "post_id")
+}
+
+model post_likes {
+  id         Int       @id @default(autoincrement())
+  post_id    Int
+  user_id    Int
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  posts      posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_like_post")
+  users      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_like_user")
+
+  @@unique([post_id, user_id], map: "unique_like")
+  @@index([post_id], map: "post_id")
+  @@index([user_id], map: "user_id")
+}
+
+model post_shares {
+  id         Int       @id @default(autoincrement())
+  post_id    Int?
+  user_id    Int?
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  posts      posts?    @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "post_shares_ibfk_1")
+  users      User?     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "post_shares_ibfk_2")
+
+  @@index([post_id], map: "post_id")
+  @@index([user_id], map: "user_id")
+}
+
+model posts {
+  id            Int             @id @default(autoincrement())
+  user_id       Int
+  caption       String?         @db.Text
+  created_at    DateTime?       @default(now()) @db.DateTime(0)
+  like_count    Int?            @default(0)
+  comment_count Int?            @default(0)
+  status        posts_status?   @default(active)
+  post_comments post_comments[]
+  post_images   post_images[]
+  post_likes    post_likes[]
+  post_shares   post_shares[]
+  users         User            @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "posts_ibfk_1")
+
+  @@index([user_id], map: "user_id")
+}
+
+model product_images {
+  id           Int       @id @default(autoincrement())
+  product_id   Int
+  image_url    String?   @db.VarChar(255)
+  is_thumbnail Boolean?  @default(false)
+  created_at   DateTime? @default(now()) @db.DateTime(0)
+  products     products  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "product_images_ibfk_1")
+  @@index([product_id], map: "product_id")
+}
+
+model products {
+  id             Int              @id @default(autoincrement())
+  name           String           @db.VarChar(150)
+  price          Decimal          @db.Decimal(12, 2)
+  description    String?          @db.Text
+  category_id    Int
+  subcategory_id Int
+  location       String?          @db.VarChar(100)
+  tag            String?          @db.VarChar(50)
+  created_at     DateTime?        @default(now()) @db.DateTime(0)
+  stock          Int              @default(0)
+  cart           cart[]
+  order_items    order_items[]
+  product_images product_images[]
+  categories     categories       @relation(fields: [category_id], references: [id], onDelete: NoAction, map: "products_ibfk_1")
+  subcategories  subcategories    @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, map: "products_ibfk_2")
+
+  @@index([category_id], map: "category_id")
+  @@index([subcategory_id], map: "subcategory_id")
+}
+
+model subcategories {
+  id          Int        @id @default(autoincrement())
+  name        String     @db.VarChar(100)
+  category_id Int
+  products    products[]
+  categories  categories @relation(fields: [category_id], references: [id], onDelete: Cascade, map: "subcategories_ibfk_1")
+
+  @@index([category_id], map: "category_id")
+}
+
+enum Role {
+  admin
+  user
+}
+
+enum orders_status {
+  pending
+  paid
+  shipping
+  completed
+  cancelled
+}
+
+enum posts_status {
+  active
+  hidden
+}

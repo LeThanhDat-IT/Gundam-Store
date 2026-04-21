@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Genos:wght@200;400;600&family=Manjari:wght@100;400;700&family=Manrope:wght@200;400;600&display=swap');
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f3f3;
+}
+
+/* WRAPPER 2 CỘT */
+
+.loginWrapper {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+
+}
+
+/* LEFT SIDE */
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: rgb(12, 12, 12);
+  max-width: 350px;
+}
+
+
+.heroImage {
+  width: 1000px;
+  margin-top: 20px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.tagline {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #000000;
+  line-height: 1.5;
+  font-family: "Manrope", sans-serif;
+}
+
+/* FORM */
+
+.form {
+  width: 370px;
+  padding: 30px;
+  border: 2px solid rgb(247, 131, 7);
+  background: rgb(243, 243, 243);
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  font-family: "Manrope", sans-serif;
+
+}
+
+/* RESPONSIVE MOBILE */
+
+@media (max-width:768px) {
+
+  .loginWrapper {
+    margin-top: -150px;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .leftPanel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+
+    max-width: 620px;
+    width: 90%;
+  }
+
+  .heroImage {
+    width: 120px;
+    margin-top: 20px;
+    border-radius: 12px;
+  }
+
+  .tagline {
+    display: block;
+    font-size: 14px;
+    max-width: 280px;
+    color: #292929;
+    text-align: left;
+    flex: 1;
+  }
+
+
+  .form {
+    width: 90%;
+    max-width: 370px;
+  }
+
+}
+
+.form h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: bolder;
+  font-family: "Genos", sans-serif;
+  font-size: x-large;
+  color: #292929;
+
+}
+
+.form input {
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  font-family: "Manrope", sans-serif;
+  color: #292929;
+}
+
+.form button {
+  padding: 10px;
+  border: none;
+  background: #b7b7b7;
+  color: rgb(255, 255, 255);
+  border: 2px solid #000000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #ef8103;
+}
+
+.form p {
+  color: #000000;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form span {
+  color: #4a6cf7;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.switchText {
+  color: #000000;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.switchLink {
+  color: #ef8103;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}
+
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.inputGroup label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-weight: bold;
+  color: #292929;
+}
+
+.inputGroup input {
+  padding: 10px;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  color: #292929;
+}
+
+.error {
+  color: rgb(250, 83, 83) !important;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.line {
+  border: 1px solid #7c7c7c;
+  margin-bottom: 10px;
+  margin-top: -5;
+}

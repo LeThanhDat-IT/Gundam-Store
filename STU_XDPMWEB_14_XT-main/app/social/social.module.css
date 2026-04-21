@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Genos:wght@200;400;600&family=Manjari:wght@100;400;700&family=Manrope:wght@200;400;600&display=swap');
+.container{
+  background:#f8f8f8;
+  min-height:100vh;
+  /* padding:40px 20px; */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.title{
+  color:white;
+  font-size:35px;
+  font-weight: bolder;
+  margin-bottom:30px;
+  font-family:"Genos", sans-serif;
+}
+
+.feed{
+  background: #cfcfcf;
+  padding: 30px;
+  width:100%;
+  max-width:800px;
+  border-radius: 10px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  font-family: "Manrope", sans-serif;
+  overflow:visible;
+  border: 1px solid #ffa600;
+}
+
+.card{
+  background:#e8e8e8;
+  border-radius:14px;
+  overflow:visible;
+  border:2px solid #959595;
+  color: #ddd;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  color: #0f0f0f;
+}
+
+.avatar{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+}
+
+.username{
+  color:rgb(255, 255, 255);
+  font-weight:600;
+  color: #0f0f0f;
+}
+
+/* IMAGE */
+
+.postImage{
+  width:100%;
+  height:auto;
+}
+
+/* ACTION ICONS */
+
+.actions{
+  display:flex;
+  gap:25px;
+  padding:10px 12px;
+  background: #e9e7e7;
+}
+
+.actionItem{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  font-weight: bold;
+  color:#171717;
+  font-size:14px;
+  transition:0.2s;
+}
+
+
+.icon{
+  width:30px;
+  height:30px;
+  cursor:pointer;
+
+}
+
+/* TEXT */
+
+.meta{
+  padding:0 12px 12px 12px;
+  color: #ddd;
+}
+
+.likes{
+  color:#ddd;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.caption{
+  color:rgb(0, 0, 0);
+  font-size:14px;
+}
+
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px;
+}
+
+.userInfo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menuWrapper{
+  position:relative;
+}
+
+.moreIcon{
+  width:20px;
+  height:20px;
+  cursor:pointer;
+}
+
+/* MENU */
+
+.menu{
+  position:absolute;
+  top:28px;
+  right:0;
+  background:#0f0f0f;
+  border-radius:8px;
+  width:180px;
+  z-index:10;
+}
+
+.subMenu{
+  position:absolute;
+  top:100%;
+  left:50%;       
+  margin-left:6px;  
+  background:#0f0f0f;
+  border-radius:8px;
+  width:160px;
+  z-index:20;
+}
+
+.menuItem{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  cursor:pointer;
+  border-radius:8px;
+  color:#ddd;
+  font-size:14px;
+  position:relative;   
+
+}
+
+.menuItem:hover{
+  background:#535252;
+}
+
+.menuIcon{
+  width:25px;
+  height:25px;
+}
+
+
+
+.menuItem:hover .subMenu{
+  display:block;
+}

@@ -1,0 +1,54 @@
+.card {
+  width: 220px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #4e4e4e;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  /* hoặc space-between */
+  padding: 8px;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  /* 👈 căn giữa icon + text */
+  gap: 5px;
+  font-size: 14px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+
+  .card {
+    width: 200px;
+  }
+}

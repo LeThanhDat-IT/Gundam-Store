@@ -1,0 +1,46 @@
+{
+  "name": "webbanmohinh",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanh-1504/gundam-model.git"
+  },
+  "author": "nhatthanh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thanh-1504/gundam-model/issues"
+  },
+  "homepage": "https://github.com/thanh-1504/gundam-model#readme",
+  "description": "",
+  "dependencies": {
+    "@payos/node": "^2.0.5",
+    "@prisma/adapter-mariadb": "^7.5.0",
+    "@prisma/client": "^7.5.0",
+    "axios": "^1.14.0",
+    "bcryptjs": "^3.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "joi": "^18.1.1",
+    "jsonwebtoken": "^9.0.3",
+    "moment": "^2.30.1",
+    "morgan": "^1.10.1",
+    "multer": "^2.1.1",
+    "mysql2": "^3.19.1",
+    "qs": "^6.15.0",
+    "validator": "^13.15.26"
+  },
+  "devDependencies": {
+    "@types/multer": "^2.1.0",
+    "@types/node": "^25.5.0",
+    "prisma": "^7.5.0"
+  }
+}

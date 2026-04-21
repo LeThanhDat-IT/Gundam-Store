@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+/* Hiệu ứng trượt lên và hiện rõ dần */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Class để gọi hiệu ứng */
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Chỉnh lại thanh cuộn (Scrollbar) cho đồng bộ Dark Mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d; 
+}
+::-webkit-scrollbar-thumb {
+  background: #333; 
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
