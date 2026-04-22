@@ -7,9 +7,20 @@ import { useCartContext } from '../../features/cart/context/CartContext';
 const Cart = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { cartItems, updateQuantity, removeItem, totalPrice, clearCart } = useCartContext();
+  const { cartItems, updateQuantity, removeItem, totalPrice, clearCart, loading } = useCartContext();
 
   const formatPrice = (price) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+
+  if (loading) {
+    return (
+      <div className="bg-[#f8f9fa] min-h-screen py-10 font-sans">
+        <div className="max-w-[1200px] mx-auto px-4 text-center py-20 bg-white border border-gray-200 rounded-md">
+          <h2 className="text-2xl font-medium text-black mb-4">Đang tải giỏ hàng...</h2>
+          <p className="text-gray-500">Đang đồng bộ giỏ hàng từ máy chủ.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return (

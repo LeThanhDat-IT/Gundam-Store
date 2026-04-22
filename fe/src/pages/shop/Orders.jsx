@@ -1,35 +1,77 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import axiosClient from '../../config/axiosClient';
+import { AuthContext } from '../../features/auth/context/AuthContext';
 
 const cancelStatuses = new Set(['cancelled', 'failed', 'cancel', 'canceled']);
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const { user } = useContext(AuthContext);
+
+  const loadLocalOrders = () => JSON.parse(localStorage.getItem('orders') || '[]');
 
   useEffect(() => {
-    let savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-    
-    // Đón URL status=success hoặc cancelled từ VNPay/MoMo/PayOS/Demo trả về
     const paymentStatus = searchParams.get("status");
-    if (paymentStatus === "success" && savedOrders.length > 0) {
-      // Cập nhật đơn hàng mới nhất thành paid
-      if (savedOrders[0].status === "pending") {
-        savedOrders[0].status = "paid";
-        localStorage.setItem('orders', JSON.stringify(savedOrders));
+
+    const fetchOrders = async () => {
+      if (!user) {
+        setOrders(loadLocalOrders());
+        setLoading(false);
+        return;
       }
-    } else if (cancelStatuses.has(paymentStatus) && savedOrders.length > 0) {
-      if (savedOrders[0].status === "pending") {
-        savedOrders[0].status = "cancelled";
-        localStorage.setItem('orders', JSON.stringify(savedOrders));
+
+      try {
+        setLoading(true);
+        const response = await axiosClient.get('/orders');
+        const apiOrders = Array.isArray(response.data?.data ?? response.data)
+          ? (response.data?.data ?? response.data)
+          : [];
+
+        setOrders(
+          apiOrders.map((order) => ({
+            id: order.id ?? order.Id,
+            totalPrice: order.totalPrice ?? order.TotalPrice,
+            status: order.status ?? order.Status,
+            createdAt: order.createdAt ?? order.CreatedAt,
+            receiverName: order.receiverName ?? order.ReceiverName,
+            phone: order.phone ?? order.Phone,
+            address: order.address ?? order.Address,
+            itemCount: order.itemCount ?? order.ItemCount ?? 0,
+          })),
+        );
+      } catch (error) {
+        console.error('Không tải được đơn hàng từ server:', error);
+        setOrders(loadLocalOrders());
+      } finally {
+        setLoading(false);
       }
+    };
+
+    fetchOrders();
+
+    if (!user) {
+      return;
     }
 
-    setOrders(savedOrders);
-  }, [searchParams]);
+    if (paymentStatus === "success") {
+      return;
+    }
+  }, [searchParams, user]);
 
   const formatPrice = (price) =>
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+
+  if (loading) {
+    return (
+      <div className="max-w-3xl mx-auto rounded-none border border-gray-100 bg-white p-8 md:p-12 text-center shadow-xl shadow-slate-200/50 my-10">
+        <h1 className="text-3xl md:text-4xl font-black text-slate-800 mb-4 tracking-tight uppercase">Đang tải đơn hàng...</h1>
+        <p className="text-slate-500 font-medium">Đang đồng bộ lịch sử mua hàng từ máy chủ.</p>
+      </div>
+    );
+  }
 
   if (!orders.length) {
     return (
@@ -91,7 +133,7 @@ const Orders = () => {
                 {/* Phương thức thanh toán */}
                 <span className="rounded-none bg-slate-50 px-3 py-1.5 text-slate-600 border border-gray-200 shadow-sm flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
-                  {order.paymentMethod || 'cod'}
+                  {order.paymentMethod || '—'}
                 </span>
               </div>
 
@@ -101,7 +143,7 @@ const Orders = () => {
             <div className="mt-6 grid gap-4 border-t border-gray-100 pt-6 text-sm text-slate-600 md:grid-cols-2 bg-slate-50 rounded-none p-5 border border-dashed">
               <div>
                 <p className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-1">Số lượng mua</p>
-                <p className="font-bold text-slate-800 text-base">{order.items?.length || 0} sản phẩm</p>
+                <p className="font-bold text-slate-800 text-base">{order.itemCount || order.items?.length || 0} sản phẩm</p>
               </div>
               <div>
                 <p className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-1">Tổng thanh toán</p>

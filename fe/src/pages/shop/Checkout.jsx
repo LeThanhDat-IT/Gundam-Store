@@ -12,29 +12,15 @@ const PAYMENT_METHODS = [
     label: 'Thanh toán khi nhận hàng',
     description: 'Xác nhận đơn ngay, thanh toán cho shipper khi nhận hàng.',
   },
-  {
-    value: 'momo',
-    label: 'MoMo / Ví điện tử',
-    description: 'Đánh dấu đơn là đã thanh toán sau khi xác nhận giao dịch.',
-  },
-  {
-    value: 'payos',
-    label: 'Chuyển khoản / Quét mã VietQR',
-    description: 'Tự động tạo mã VietQR chuyển khoản cực nhanh (PayOS).',
-  },
   {    value: 'demo',
     label: 'Mã giả lập / Demo Test',
     description: 'Dùng để demo trạng thái hiển thị "Đã thanh toán" (Bỏ qua OTP/Tiền thật).',
-  },
-  {    value: 'vnpay',
-    label: 'Thanh toán trực tuyến bằng VNPay',
-    description: 'Thanh toán qua ví VNPay, quét mã QR, thẻ ATM hoặc thẻ quốc tế.',
   },
 ];
 
 const Checkout = () => {
   const { user } = useContext(AuthContext);
-  const { cartItems, totalPrice, clearCart } = useCartContext();
+  const { cartItems, totalPrice, clearCart, loading } = useCartContext();
   const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -165,6 +151,15 @@ const Checkout = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-3xl mx-auto rounded-none border border-gray-100 bg-white p-8 md:p-12 text-center shadow-xl shadow-slate-200/50 my-10">
+        <h1 className="text-3xl md:text-4xl font-black text-slate-800 mb-4 uppercase tracking-tight">Đang tải giỏ hàng...</h1>
+        <p className="text-slate-500 font-medium">Vui lòng chờ trong giây lát.</p>
+      </div>
+    );
+  }
 
   // UI Khi chưa đăng nhập
   if (!user) {

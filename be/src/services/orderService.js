@@ -1,11 +1,8 @@
 const prisma = require("../lib/prisma");
 const AppError = require("../util/AppError");
-const vnpayService = require("./vnpayService");
-const momoService = require("./momoService");
-const payosService = require("./payosService");
 
 const mapPaymentStatus = (paymentMethod) =>
-  ["cod", "vnpay", "momo", "payos", "demo"].includes(paymentMethod) ? "pending" : "paid";
+  ["cod", "demo"].includes(paymentMethod) ? "pending" : "paid";
 
 const normalizeItems = (items) =>
   items.map((item) => ({
@@ -142,17 +139,7 @@ const handleCreateOrder = async (payload) => {
     });
   });
 
-  let paymentUrl = null;
-  if (paymentMethod === "vnpay") {
-    paymentUrl = vnpayService.createPaymentUrl(order, "127.0.0.1"); // ipAddr
-    order.paymentUrl = paymentUrl;
-  } else if (paymentMethod === "momo") {
-    paymentUrl = await momoService.createPaymentUrl(order);
-    order.paymentUrl = paymentUrl;
-  } else if (paymentMethod === "payos") {
-    paymentUrl = await payosService.createPaymentUrl(order);
-    order.paymentUrl = paymentUrl;
-  } else if (paymentMethod === "demo") {
+  if (paymentMethod === "demo") {
     // Phương thức thanh toán ảo để giả lập kết quả thành công cho Frontend
     order.paymentUrl = `https://gundam-model.onrender.com/orders/demo_pay?orderId=${order.id}`;
   }
