@@ -54,7 +54,7 @@ interface User {
 }
 export default function ProfilePage() {
     // const [user, setUser] = useState<User | null>(null);
-    const { user, isReady } = useUser();
+    const { user, setUser, isReady } = useUser();
     const [openModal, setOpenModal] = useState<"followers" | "following" | null>(null);
     const [openPostModal, setOpenPostModal] = useState(false);
     const [content, setContent] = useState("");

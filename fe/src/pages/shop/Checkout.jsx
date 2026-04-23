@@ -13,7 +13,7 @@ const PAYMENT_METHODS = [
     description: 'Xác nhận đơn ngay, thanh toán cho shipper khi nhận hàng.',
   },
   {    value: 'demo',
-    label: 'Mã giả lập / Demo Test',
+    label: 'Chuyển khoản (Demo)',
     description: 'Dùng để demo trạng thái hiển thị "Đã thanh toán" (Bỏ qua OTP/Tiền thật).',
   },
 ];
@@ -78,6 +78,7 @@ const Checkout = () => {
     localOnly: true,
   });
 
+  //hàm submit, xử lý kết quả, lưu lịch sử đơn hàng
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -108,6 +109,7 @@ const Checkout = () => {
         items: orderItems,
       };
 
+      //request tạo đơn hàng trên server
       const response = await axiosClient.post('/orders', payload);
       const createdOrder = response.data?.data || response.data;
 

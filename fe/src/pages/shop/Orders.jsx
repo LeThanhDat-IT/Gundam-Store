@@ -40,6 +40,7 @@ const Orders = () => {
             phone: order.phone ?? order.Phone,
             address: order.address ?? order.Address,
             itemCount: order.itemCount ?? order.ItemCount ?? 0,
+            paymentMethod: order.paymentMethod ?? order.PaymentMethod,
           })),
         );
       } catch (error) {
@@ -63,6 +64,28 @@ const Orders = () => {
 
   const formatPrice = (price) =>
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+
+  const getPaymentMethodLabel = (order) => {
+    const paymentMethod = (order.paymentMethod || '').trim().toLowerCase();
+
+    if (paymentMethod === 'cod') {
+      return 'COD';
+    }
+
+    if (paymentMethod === 'demo') {
+      return 'DEMO';
+    }
+
+    if (order.status === 'paid') {
+      return 'DEMO';
+    }
+
+    if (order.status === 'pending') {
+      return 'COD';
+    }
+
+    return '—';
+  };
 
   if (loading) {
     return (
@@ -131,9 +154,9 @@ const Orders = () => {
                 </span>
                 
                 {/* Phương thức thanh toán */}
-                <span className="rounded-none bg-slate-50 px-3 py-1.5 text-slate-600 border border-gray-200 shadow-sm flex items-center gap-1">
+                <span className="rounded-none bg-slate-50 px-3 py-1.5 text-slate-600 border border-gray-200 shadow-sm flex items-center gap-1 font-black uppercase tracking-wider">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
-                  {order.paymentMethod || '—'}
+                  {getPaymentMethodLabel(order)}
                 </span>
               </div>
 
